@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kullanıcı Formu</title>
+</head>
+<body>
+    
+    <h1>Yeni Kullanıcı Oluştur</h1>
+    <table border="2px solid">
+    <form id="userForm">
+        <tr>
+            <td>İsim</td>
+            <td><input type="text" id="name" required /></td></tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="email" id="email" required /></td></tr>
+        <tr>
+            <td>Telefon</td>
+            <td><input type="text" id="phone"></td></tr>
+        <tr>
+            <td ><button type="submit">Gönder</button></td></tr>
+        
+    </form>
+    </table>
+
+  <p id="result"></p>
+
+    <script>
+        const form = document.getElementById('userForm');
+        const result = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+
+        const response = await fetch('/users', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email, phone})
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            result.textContent = `Başarılı! Kullanıcı ID: ${data.id}`;
+            form.reset();
+        } else {
+            result.textContent = `Hata: ${data.error}`;
+        }
+        });
+    </script>
+</body>
+</html>

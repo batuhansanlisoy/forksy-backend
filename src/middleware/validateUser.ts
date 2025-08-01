@@ -1,0 +1,13 @@
+// src/middleware/validateUser.ts
+import { Request, Response, NextFunction } from 'express';
+
+export const validateUser = (req: Request, res: Response, next: NextFunction): void => {
+     const { name, email} = req.body;
+
+    if (!name || !email) {
+        res.status(400).json({ error: 'İsim ve email zorunlu' });
+        return;
+     }
+
+    next();
+};

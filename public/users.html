@@ -1,0 +1,35 @@
+<!-- public/users.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kullanıcı Listesi</title>
+</head>
+<body>
+  <h1>Kayıtlı Kullanıcılar</h1>
+  <ul id="userList"></ul>
+
+  <script>
+    // Sunucudan kullanıcı listesini çek
+    fetch('/users')
+      .then(response => response.json())
+      .then(users => {
+        const list = document.getElementById('userList');
+
+        if (users.length === 0) {
+          list.innerHTML = '<li>Hiç kullanıcı yok 😢</li>';
+          return;
+        }
+
+        users.forEach(user => {
+          const li = document.createElement('li');
+          li.textContent = `${user.id}: ${user.name} (${user.email})`;
+          list.appendChild(li);
+        });
+      })
+      .catch(error => {
+        console.error('Hata:', error);
+      });
+  </script>
+</body>
+</html>
