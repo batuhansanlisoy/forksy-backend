@@ -6,9 +6,9 @@ export async function up(knex: Knex): Promise<void> {
         table.integer("menu_category_id").unsigned().notNullable().references("id").inTable("menu_categories").onDelete("CASCADE");
         table.integer("organization_id").unsigned().notNullable().references("id").inTable("organizations").onDelete("CASCADE");
         table.timestamps(true, true);
+        table.unique(["organization_id", "menu_category_id"]);
     });
 }
-
 
 export async function down(knex: Knex): Promise<void> {
     return knex.schema.dropTable("organization_categories");

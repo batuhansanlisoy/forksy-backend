@@ -9,6 +9,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string("phone").notNullable();
         table.string("adress").notNullable();
         table.string("city").notNullable();
+        table.string("password").notNullable();
         table.string("country").defaultTo("Türkiye");
         table.enu("subscription_type", ["free", "basic", "pro"]).defaultTo("free");
         table.boolean("is_active").defaultTo(true);

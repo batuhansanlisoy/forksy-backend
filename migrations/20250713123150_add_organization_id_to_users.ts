@@ -7,8 +7,10 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-    return knex.schema.alterTable("users", (table) => {
-        table.dropColumn("organization_id");
-    })
+  return knex.schema.alterTable("users", (table) => {
+    table.dropForeign("organization_id");  // Önce foreign key kaldırılır
+    table.dropColumn("organization_id");   // Sonra sütun silinir
+  });
 }
+
 

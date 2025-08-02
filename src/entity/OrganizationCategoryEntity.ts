@@ -1,5 +1,5 @@
 export interface OrganizationCategory{
-    id: number,
+    id?: number,
     menu_category_id: number,
     organization_id: number,
     created_at?: Date,
